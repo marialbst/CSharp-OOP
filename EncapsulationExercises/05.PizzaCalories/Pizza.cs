@@ -24,7 +24,7 @@ namespace _05.PizzaCalories
             get { return this.name; }
             private set
             {
-                if(string.IsNullOrWhiteSpace(value)||value.Length < 1 || value.Length > 15)
+                if(value.Length < 1 || value.Length > 15)
                 {
                     throw new ArgumentException("Pizza name should be between 1 and 15 symbols.");
                 }
@@ -47,7 +47,11 @@ namespace _05.PizzaCalories
 
         public double CalculateTotalCalories()
         {
-            return this.dough.CalculateDoughCalories() + this.toppings.Sum(t => t.CalculateToppingCalories());
+            double result = this.dough.CalculateDoughCalories();
+            this.toppings.ForEach(t => result += t.CalculateToppingCalories());
+
+            return result;
+            //return this.dough.CalculateDoughCalories() + this.toppings.Sum(t => t.CalculateToppingCalories());
         }
 
         public Dough Dough
@@ -62,7 +66,7 @@ namespace _05.PizzaCalories
 
         public override string ToString()
         {
-            return $"{this.Name} – {this.CalculateTotalCalories():f2} Calories.";
+            return $"{this.name} - {this.CalculateTotalCalories():f2} Calories.";
         }
     }
 }

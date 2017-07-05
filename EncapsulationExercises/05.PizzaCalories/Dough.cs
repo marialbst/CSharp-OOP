@@ -58,7 +58,7 @@ namespace _05.PizzaCalories
             {
                 if (value < 1 || value > 200)
                 {
-                    throw new ArgumentException("Dough weight should be in the range [1..200]");
+                    throw new ArgumentException("Dough weight should be in the range [1..200].");
                 }
                 this.weight = value;
             }
@@ -66,7 +66,7 @@ namespace _05.PizzaCalories
 
         public double CalculateDoughCalories()
         {
-            double cal = Base * this.Weight;
+            double cal = this.Weight * Base;
             double flourModifier = GetFlourModifier();
 
             double backingTechnique = GetBakingTech();
