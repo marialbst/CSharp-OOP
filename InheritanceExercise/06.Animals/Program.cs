@@ -23,7 +23,7 @@ namespace _06.Animals
 
                 try
                 {
-                    var input = Console.ReadLine().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                    var input = Console.ReadLine().Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
                     int age;
 
                     if (!int.TryParse(input[1], out age))
