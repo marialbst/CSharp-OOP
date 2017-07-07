@@ -28,7 +28,7 @@ namespace _01.Vehicles.Utilities
         {
             if (distance*(consumption + increase) > fuel)
             {
-                throw new ArgumentException($"{name} needs needs refueling");
+                throw new ArgumentException($"{name} needs refueling");
             }
 
             return distance*(consumption + increase);
