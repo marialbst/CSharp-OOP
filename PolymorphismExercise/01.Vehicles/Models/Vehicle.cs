@@ -53,10 +53,13 @@ namespace _01.Vehicles.Models
 
             if (isEmpty)
             {
-                this.Increase = 0;
+                this.FuelQuantity -= distance * this.FuelConsumption;
             }
-
-            this.FuelQuantity -= distance * (this.FuelConsumption + this.Increase);
+            else
+            {
+                this.FuelQuantity -= distance * (this.FuelConsumption + this.Increase);
+            }
+           
                 
             Console.WriteLine($"{this.GetType().Name} travelled {distance} km");
         }
