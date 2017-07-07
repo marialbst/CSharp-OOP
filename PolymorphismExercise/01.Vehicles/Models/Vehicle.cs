@@ -46,10 +46,6 @@ namespace _01.Vehicles.Models
 
         public void Drive(double distance, bool isEmpty)
         {
-            if (distance * this.FuelConsumption > this.FuelQuantity)
-            {
-                throw new ArgumentException($"{this.GetType().Name} needs refueling");
-            }
             double result = 0;
             if (isEmpty)
             {
