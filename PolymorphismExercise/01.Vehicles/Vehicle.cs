@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _01.Vehicles.Utilities;
+using System;
 
 namespace _01.Vehicles
 {
@@ -6,17 +7,27 @@ namespace _01.Vehicles
     {
         private double fuelQuantity;
         private double fuelConsumption;
+        private double tankCapacity;
 
-        public Vehicle(double fuelQuantity, double fuelConsumption)
+        public Vehicle(double fuelQuantity, double fuelConsumption, double tankCapacity)
         {
-            this.FuelQuantity = fuelQuantity;
             this.FuelConsumption = fuelConsumption;
+            this.TankCapacity = tankCapacity;
+            this.FuelQuantity = fuelQuantity;
         }
+
+        public abstract double Increase { get; set; }
 
         public double FuelQuantity
         {
             get { return this.fuelQuantity; }
-            set { this.fuelQuantity = value; }
+            set
+            {
+                Validator.IsPositiveNum(value);
+                Validator.IsCapacityEnough(value, this.TankCapacity, this.FuelQuantity);
+                
+                this.fuelQuantity = value;
+            }
         }
 
         public double FuelConsumption
@@ -25,21 +36,37 @@ namespace _01.Vehicles
             set { this.fuelConsumption = value; }
         }
 
-        public void Drive(double distance)
+        public double TankCapacity
         {
-            if (distance * this.FuelConsumption <= this.FuelQuantity)
+            get { return this.tankCapacity; }
+            set
             {
-                this.FuelQuantity -= distance * this.FuelConsumption;
-                Console.WriteLine($"{this.GetType().Name} travelled {distance} km");
+                this.tankCapacity = value;
             }
-            else
+        }
+
+        public void Drive(double distance, bool isEmpty)
+        {
+            if (distance * this.FuelConsumption > this.FuelQuantity)
             {
-                Console.WriteLine($"{this.GetType().Name} needs refueling");
+                throw new ArgumentException($"{this.GetType().Name} needs refueling");
             }
+
+            if (isEmpty)
+            {
+                this.Increase = 0;
+            }
+
+            this.FuelQuantity -= distance * (this.FuelConsumption + this.Increase);
+                
+            Console.WriteLine($"{this.GetType().Name} travelled {distance} km");
         }
 
         public virtual void Refuel(double quantity)
         {
+            Validator.IsPositiveNum(quantity);
+            Validator.IsCapacityEnough(quantity, this.TankCapacity, this.FuelQuantity);
+
             this.FuelQuantity += quantity;
         }
 

@@ -6,13 +6,24 @@ namespace _01.Vehicles
 {
     class Program
     {
+
         static void Main(string[] args)
         {
-            List<Vehicle> vehicles = ReadVehicles();
 
-            DoActions(vehicles);
+            try
+            {
+                List<Vehicle> vehicles = ReadVehicles();
 
-            vehicles.ForEach(v => Console.WriteLine(v));
+                DoActions(vehicles);
+
+                vehicles.ForEach(v => Console.WriteLine(v));
+            }
+            catch (ArgumentException e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+           
         }
 
         private static void DoActions(List<Vehicle> vehicles)
@@ -23,31 +34,27 @@ namespace _01.Vehicles
             {
                 var command = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 string type = command[1];
-                double val = double.Parse(command[2]);
+                double val;
 
-                switch (command[0])
+                if (!double.TryParse(command[2], out val))
                 {
-                    case "Drive": Drive(vehicles, type, val); break;
-                    case "Refuel": Refuel(vehicles, type, val); break;
+                    throw new ArgumentException("Fuel must be a positive number");
                 }
-            }
-        }
 
-        private static void Refuel(List<Vehicle> vehicles, string type, double quantity)
-        {
-            switch (type)
-            {
-                case "Car": vehicles[0].Refuel(quantity); break;
-                case "Truck": vehicles[1].Refuel(quantity); break;
-            }
-        }
-
-        private static void Drive(List<Vehicle> vehicles, string type, double distance)
-        {
-            switch (type)
-            {
-                case "Car": vehicles[0].Drive(distance); break;
-                case "Truck": vehicles[1].Drive(distance); break;
+                try
+                { 
+                    switch (command[0])
+                    {
+                        case "Drive": vehicles.First(v => v.GetType().Name == type).Drive(val, false); break;
+                        case "DriveEmpty": vehicles.First(v => v.GetType().Name == "Bus").Drive(val, true); break;
+                        case "Refuel": vehicles.First(v => v.GetType().Name == type).Refuel(val); break;
+                        default: throw new ArgumentException("Invalid input");
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
 
@@ -55,9 +62,9 @@ namespace _01.Vehicles
         {
             List<Vehicle> veh = new List<Vehicle>();
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
-                var input = Console.ReadLine()
+                 var input = Console.ReadLine()
                 .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                 double[] carData = input.Skip(1)
@@ -66,9 +73,10 @@ namespace _01.Vehicles
 
                 switch (input[0])
                 {
-                    case "Car": veh.Add(new Car(carData[0], carData[1])); break;
-                    case "Truck": veh.Add(new Truck(carData[0], carData[1])); break;
-                    default: throw new Exception();
+                    case "Car": veh.Add(new Car(carData[0], carData[1], carData[2])); break;
+                    case "Truck": veh.Add(new Truck(carData[0], carData[1], carData[2])); break;
+                    case "Bus": veh.Add(new Truck(carData[0], carData[1], carData[2])); break;
+                    default: throw new ArgumentException("Invalid input");
                 }
             }
             return veh;
