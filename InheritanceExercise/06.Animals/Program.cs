@@ -37,7 +37,8 @@ namespace _06.Animals
                         case "Dog": animals.Add(new Dog(input[0], age, input[2])); break;
                         case "Frog": animals.Add(new Frog(input[0], age, input[2])); break;
                         case "Kitten": animals.Add(new Kitten(input[0], age)); break;
-                        default: animals.Add(new Tomcat(input[0], age)); break;
+                        case "Tomcat": animals.Add(new Tomcat(input[0], age)); break;
+                        default: throw new ArgumentException("Invalid input!"); 
                     }
 
                 }
