@@ -65,6 +65,8 @@ namespace _01.Vehicles.Models
         public virtual void Refuel(double quantity)
         {
             Validator.IsPositiveNum(quantity);
+            Validator.IsCapacityEnough(quantity, this.TankCapacity, this.FuelQuantity);
+            this.FuelQuantity += quantity;
         }
 
         public override string ToString()

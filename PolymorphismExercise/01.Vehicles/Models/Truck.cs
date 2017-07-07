@@ -14,7 +14,7 @@ namespace _01.Vehicles.Models
 
         public override void Refuel(double quantity)
         {
-            base.Refuel(quantity);
+            Validator.IsPositiveNum(quantity);
             this.FuelQuantity += 0.95 * quantity;
         }
 
