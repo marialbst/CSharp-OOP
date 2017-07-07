@@ -21,7 +21,7 @@ namespace _01.Vehicles.Models
         public double FuelQuantity
         {
             get { return this.fuelQuantity; }
-            set
+            protected set
             {
                 Validator.IsPositiveNum(value);
                                
@@ -32,13 +32,13 @@ namespace _01.Vehicles.Models
         public double FuelConsumption
         {
             get { return this.fuelConsumption; }
-            set { this.fuelConsumption = value; }
+            protected set { this.fuelConsumption = value; }
         }
 
         public double TankCapacity
         {
             get { return this.tankCapacity; }
-            set
+            protected set
             {
                 this.tankCapacity = value;
             }
@@ -48,8 +48,7 @@ namespace _01.Vehicles.Models
         {
             if (distance * this.FuelConsumption > this.FuelQuantity)
             {
-                Console.WriteLine($"{this.GetType().Name} needs refueling");
-                return;
+                throw new ArgumentException($"{this.GetType().Name} needs refueling");
             }
 
             if (isEmpty)

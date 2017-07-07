@@ -31,7 +31,7 @@ namespace _01.Vehicles
                         case "Drive": vehicles.First(v => v.GetType().Name == type).Drive(val, false); break;
                         case "DriveEmpty": vehicles.First(v => v.GetType().Name == "Bus").Drive(val, true); break;
                         case "Refuel": vehicles.First(v => v.GetType().Name == type).Refuel(val); break;
-                        default: throw new ArgumentException("Invalid input");
+                        default: break;
                     }
                 }
                 catch (ArgumentException e)
@@ -67,8 +67,7 @@ namespace _01.Vehicles
                         case "Bus":
                             veh.Add(new Bus(carData[0], carData[1], carData[2]));
                             break;
-                        default:
-                            throw new ArgumentException("Invalid input");
+                        default:break;
                     }
                 }
                 catch (ArgumentException e)
