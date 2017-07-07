@@ -23,5 +23,15 @@ namespace _01.Vehicles.Utilities
 
             return num;
         }
+
+        public static double IsFuelEnough(string name, double distance, double fuel, double consumption, double increase = 0)
+        {
+            if (distance*(consumption + increase) > fuel)
+            {
+                throw new ArgumentException($"{name} needs needs refueling");
+            }
+
+            return distance*(consumption + increase);
+        }
     }
 }

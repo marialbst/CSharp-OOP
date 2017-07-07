@@ -20,12 +20,12 @@ namespace _01.Vehicles
 
             for (int i = 0; i < commandsCount; i++)
             {
-                var command = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                string type = command[1];
-                double val = double.Parse(command[2]);
-
                 try
-                { 
+                {
+                    var command = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    string type = command[1];
+                    double val = double.Parse(command[2]);
+
                     switch (command[0])
                     {
                         case "Drive": vehicles.First(v => v.GetType().Name == type).Drive(val, false); break;
@@ -50,30 +50,23 @@ namespace _01.Vehicles
                  var input = Console.ReadLine()
                 .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                try
-                {
-                    double[] carData = input.Skip(1)
+                double[] carData = input.Skip(1)
                         .Select(double.Parse)
                         .ToArray();
 
-                    switch (input[0])
-                    {
-                        case "Car":
-                            veh.Add(new Car(carData[0], carData[1], carData[2]));
-                            break;
-                        case "Truck":
-                            veh.Add(new Truck(carData[0], carData[1], carData[2]));
-                            break;
-                        case "Bus":
-                            veh.Add(new Bus(carData[0], carData[1], carData[2]));
-                            break;
-                        default:break;
-                    }
-                }
-                catch (ArgumentException e)
+                switch (input[0])
                 {
-                    Console.WriteLine(e.Message);
-                }
+                    case "Car":
+                        veh.Add(new Car(carData[0], carData[1], carData[2]));
+                        break;
+                    case "Truck":
+                        veh.Add(new Truck(carData[0], carData[1], carData[2]));
+                        break;
+                    case "Bus":
+                        veh.Add(new Bus(carData[0], carData[1], carData[2]));
+                        break;
+                    default:break;
+                }  
             }
             return veh;
         }

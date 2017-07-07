@@ -16,7 +16,7 @@ namespace _01.Vehicles.Models
             this.TankCapacity = tankCapacity;
         }
 
-        public double Increase { get; set; }
+        protected double Increase { get; set; }
 
         public double FuelQuantity
         {
@@ -50,17 +50,18 @@ namespace _01.Vehicles.Models
             {
                 throw new ArgumentException($"{this.GetType().Name} needs refueling");
             }
-
+            double result = 0;
             if (isEmpty)
             {
-                this.FuelQuantity -= distance * this.FuelConsumption;
+                result = Validator.IsFuelEnough(this.GetType().Name, distance, this.FuelQuantity, this.FuelConsumption);
+                
             }
             else
             {
-                this.FuelQuantity -= distance * (this.FuelConsumption + this.Increase);
+                result = Validator.IsFuelEnough(this.GetType().Name, distance, this.FuelQuantity, this.FuelConsumption, this.Increase);
             }
-           
-                
+
+            this.FuelQuantity -= result;
             Console.WriteLine($"{this.GetType().Name} travelled {distance} km");
         }
 
