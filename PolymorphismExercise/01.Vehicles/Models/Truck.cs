@@ -1,4 +1,6 @@
-﻿namespace _01.Vehicles
+﻿using _01.Vehicles.Utilities;
+
+namespace _01.Vehicles.Models
 {
     public class Truck : Vehicle
     {
@@ -12,6 +14,7 @@
 
         public override void Refuel(double quantity)
         {
+            base.Refuel(quantity);
             this.FuelQuantity += 0.95 * quantity;
         }
 

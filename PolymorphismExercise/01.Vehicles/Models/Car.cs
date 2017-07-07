@@ -1,6 +1,6 @@
-﻿using System;
+﻿using _01.Vehicles.Utilities;
 
-namespace _01.Vehicles
+namespace _01.Vehicles.Models
 {
     public class Car : Vehicle
     {
@@ -13,5 +13,12 @@ namespace _01.Vehicles
         }
 
         public override double Increase { get; set; }
+
+        public override void Refuel(double quantity)
+        {
+            base.Refuel(quantity);
+            Validator.IsCapacityEnough(quantity, this.TankCapacity, this.FuelQuantity);
+            this.FuelQuantity += quantity;
+        }
     }
 }

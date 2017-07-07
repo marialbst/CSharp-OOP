@@ -1,7 +1,7 @@
-﻿using _01.Vehicles.Utilities;
-using System;
+﻿using System;
+using _01.Vehicles.Utilities;
 
-namespace _01.Vehicles
+namespace _01.Vehicles.Models
 {
     public abstract class Vehicle
     {
@@ -11,9 +11,9 @@ namespace _01.Vehicles
 
         public Vehicle(double fuelQuantity, double fuelConsumption, double tankCapacity)
         {
+            this.FuelQuantity = fuelQuantity;
             this.FuelConsumption = fuelConsumption;
             this.TankCapacity = tankCapacity;
-            this.FuelQuantity = fuelQuantity;
         }
 
         public abstract double Increase { get; set; }
@@ -24,8 +24,7 @@ namespace _01.Vehicles
             set
             {
                 Validator.IsPositiveNum(value);
-                Validator.IsCapacityEnough(value, this.TankCapacity, this.FuelQuantity);
-                
+                               
                 this.fuelQuantity = value;
             }
         }
@@ -49,7 +48,8 @@ namespace _01.Vehicles
         {
             if (distance * this.FuelConsumption > this.FuelQuantity)
             {
-                throw new ArgumentException($"{this.GetType().Name} needs refueling");
+                Console.WriteLine($"{this.GetType().Name} needs refueling");
+                return;
             }
 
             if (isEmpty)
@@ -65,9 +65,6 @@ namespace _01.Vehicles
         public virtual void Refuel(double quantity)
         {
             Validator.IsPositiveNum(quantity);
-            Validator.IsCapacityEnough(quantity, this.TankCapacity, this.FuelQuantity);
-
-            this.FuelQuantity += quantity;
         }
 
         public override string ToString()

@@ -1,29 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using _01.Vehicles.Models;
 
 namespace _01.Vehicles
 {
     class Program
     {
-
         static void Main(string[] args)
         {
-
-            try
-            {
-                List<Vehicle> vehicles = ReadVehicles();
-
-                DoActions(vehicles);
-
-                vehicles.ForEach(v => Console.WriteLine(v));
-            }
-            catch (ArgumentException e)
-            {
-
-                Console.WriteLine(e.Message);
-            }
-           
+            List<Vehicle> vehicles = ReadVehicles();
+            DoActions(vehicles);
+            vehicles.ForEach(v => Console.WriteLine(v));   
         }
 
         private static void DoActions(List<Vehicle> vehicles)
@@ -34,12 +22,7 @@ namespace _01.Vehicles
             {
                 var command = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 string type = command[1];
-                double val;
-
-                if (!double.TryParse(command[2], out val))
-                {
-                    throw new ArgumentException("Fuel must be a positive number");
-                }
+                double val = double.Parse(command[2]);
 
                 try
                 { 
@@ -67,16 +50,30 @@ namespace _01.Vehicles
                  var input = Console.ReadLine()
                 .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                double[] carData = input.Skip(1)
-                                        .Select(double.Parse)
-                                        .ToArray();
-
-                switch (input[0])
+                try
                 {
-                    case "Car": veh.Add(new Car(carData[0], carData[1], carData[2])); break;
-                    case "Truck": veh.Add(new Truck(carData[0], carData[1], carData[2])); break;
-                    case "Bus": veh.Add(new Truck(carData[0], carData[1], carData[2])); break;
-                    default: throw new ArgumentException("Invalid input");
+                    double[] carData = input.Skip(1)
+                        .Select(double.Parse)
+                        .ToArray();
+
+                    switch (input[0])
+                    {
+                        case "Car":
+                            veh.Add(new Car(carData[0], carData[1], carData[2]));
+                            break;
+                        case "Truck":
+                            veh.Add(new Truck(carData[0], carData[1], carData[2]));
+                            break;
+                        case "Bus":
+                            veh.Add(new Bus(carData[0], carData[1], carData[2]));
+                            break;
+                        default:
+                            throw new ArgumentException("Invalid input");
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
                 }
             }
             return veh;
