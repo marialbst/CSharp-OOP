@@ -16,7 +16,7 @@ namespace _01.Vehicles.Models
             this.TankCapacity = tankCapacity;
         }
 
-        public abstract double Increase { get; set; }
+        public double Increase { get; set; }
 
         public double FuelQuantity
         {

@@ -11,7 +11,5 @@ namespace _01.Vehicles.Models
         {
             this.Increase = IncreaseVal;
         }
-
-        public override double Increase { get; set;}
     }
 }

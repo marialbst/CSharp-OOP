@@ -17,7 +17,5 @@ namespace _01.Vehicles.Models
             Validator.IsPositiveNum(quantity);
             this.FuelQuantity += 0.95 * quantity;
         }
-
-        public override double Increase { get; set; }
     }
 }
