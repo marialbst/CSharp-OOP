@@ -1,4 +1,6 @@
-﻿namespace BashSoft.IO
+﻿using BashSoft.Exceptions;
+
+namespace BashSoft.IO
 {
     using System;
     using System.Collections.Generic;
@@ -55,7 +57,7 @@
             }
             catch (ArgumentException)
             {
-                OutputWriter.DisplayException(ExceptionMessages.ForbiddenSymbolsContainedInName);
+                throw new InvalidFileNameException();
             }
         }
 
@@ -72,7 +74,7 @@
                 }
                 catch (ArgumentException)
                 {
-                    OutputWriter.DisplayException(ExceptionMessages.UnableToGoHigherInPartitionHierarchy);
+                    throw new InvalidPathException();
                 }
             }
             else
@@ -87,8 +89,7 @@
         {
             if (!Directory.Exists(absolutePath))
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-                return;
+                throw new InvalidPathException();
             }
             SessionData.currentPath = absolutePath;
         }

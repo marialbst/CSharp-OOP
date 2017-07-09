@@ -1,48 +1,65 @@
-﻿using BashSoft.IO;
-using BashSoft.StaticData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BashSoft.Models
+﻿namespace BashSoft.Models
 {
+    using StaticData;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Exceptions;
+
     public class Student
     {
-        private string username;
+        private string userName;
         private Dictionary<string, Course> enrolledCourses;
         private Dictionary<string, double> marksByCourseName;
 
-        public Student(string username)
+        public Student(string userName)
         {
-            this.username = username;
+            this.UserName = userName;
             this.enrolledCourses = new Dictionary<string, Course>();
             this.marksByCourseName = new Dictionary<string, double>();
         }
 
+        public string UserName
+        {
+            get { return this.userName; }
+            private set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new InvalidStringException();
+                }
+                this.userName = value;
+            }
+        }
+
+        public IReadOnlyDictionary<string, Course> EnrolledCourses
+        {
+            get { return enrolledCourses;}
+        }
+
+        public IReadOnlyDictionary<string, double> MarksByCourseName
+        {
+            get { return marksByCourseName; }
+        }
         public void EnrollInCourse(Course course)
         {
-            if (this.enrolledCourses.ContainsKey(course.name))
+            if (this.enrolledCourses.ContainsKey(course.Name))
             {
-                OutputWriter.DisplayException(string.Format(ExceptionMessages.StudentAlreadyEnrolledInGivenCourse, this.username, course.name));
-                return;
+                throw new DuplicateEntryInStructureException(this.UserName, course.Name);
             }
-            this.enrolledCourses.Add(course.name, course);
+            this.enrolledCourses.Add(course.Name, course);
         }
 
         public void SetMarkOnCourse(string courseName, params int[] scores)
         {
             if (!this.enrolledCourses.ContainsKey(courseName))
             {
-                OutputWriter.DisplayException(ExceptionMessages.NotEnrolledInCourse);
-                return;
+                throw new CourseNotFoundException();
             }
 
             if (scores.Length > Course.NumberOfTasksOnExam)
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidNumberOfScores);
-                return;
+                throw new ArgumentException(ExceptionMessages.InvalidNumberOfScores);
             }
             this.marksByCourseName.Add(courseName, CalculateMark(scores));
         }

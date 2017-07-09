@@ -1,4 +1,6 @@
-﻿namespace BashSoft.Judge
+﻿using BashSoft.Exceptions;
+
+namespace BashSoft.Judge
 {
     using System;
     using System.IO;
@@ -24,9 +26,9 @@
 
                 OutputWriter.WriteMessageOnNewLine("Files read!");
             }
-            catch (FileNotFoundException e)
+            catch (IOException e)
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);                
+                throw new InvalidPathException();
             } 
             
         }
@@ -39,14 +41,8 @@
                 {
                     OutputWriter.WriteMessageOnNewLine(line);
                 }
-                try
-                {
-                    File.WriteAllLines(mismatchPath, mismatches);
-                }
-                catch (DirectoryNotFoundException)
-                {
-                    OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-                }
+                File.WriteAllLines(mismatchPath, mismatches);
+                
                 return;
             }
             
