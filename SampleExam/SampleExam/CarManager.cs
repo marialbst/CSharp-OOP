@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public class CarManager
@@ -67,7 +66,6 @@ public class CarManager
 		}
 	}
 
-
 	public void Participate(int carId, int raceId)
 	{
 		Car car = cars[carId];
@@ -88,7 +86,7 @@ public class CarManager
 
 		if (race.Participants.Count == 0)
 		{
-			return "Cannot start the race with zero participants." + Environment.NewLine;
+			return "Cannot start the race with zero participants.";
 		}
 		
 		if (race.GetType().Name == "CircuitRace")

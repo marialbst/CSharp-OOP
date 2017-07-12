@@ -30,8 +30,7 @@ public class TimeLimitRace : Race
 		var part = this.Participants.First();
 		sb.AppendLine($"{this.Route} - {this.Length}")
 			.AppendLine($"{part.Brand} {part.Model} - {this.GetPerformancePoints(part)} s.")
-			.AppendLine($"{this.GetTimeType(part)} Time, ${this.moneyWon}.")
-            .AppendLine();
+			.AppendLine($"{this.GetTimeType(part)} Time, ${this.moneyWon}.");
 		return sb.ToString();
 	}
 

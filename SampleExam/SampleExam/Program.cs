@@ -2,7 +2,6 @@
 
 class Program
 {
-		
 	static void Main(string[] args)
     {
 		CarManager manager = new CarManager();
@@ -21,7 +20,7 @@ class Program
 					case "check": Console.WriteLine(manager.Check(int.Parse(tokens[1]))); break;
 					case "open": openRace(tokens, manager);break;
 					case "participate": manager.Participate(int.Parse(tokens[1]), int.Parse(tokens[2]));break;
-					case "start": Console.Write(manager.Start(int.Parse(tokens[1]))); break;
+					case "start": Console.WriteLine(manager.Start(int.Parse(tokens[1]))); break;
 					case "park": manager.Park(int.Parse(tokens[1])); break;
 					case "unpark": manager.Unpark(int.Parse(tokens[1])); break;
 					case "tune": manager.Tune(int.Parse(tokens[1]), tokens[2]);break;

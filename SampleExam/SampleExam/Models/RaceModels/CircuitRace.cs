@@ -40,7 +40,7 @@ public class CircuitRace : CasualRace
 			sb.AppendLine($"{i + 1}. {racers[i].Brand} {racers[i].Model} {this.GetPerformancePoints(racers[i])}PP - ${this.moneyWon}");
 		}
 
-		return sb.ToString();
+		return sb.ToString().Trim();
 	}
 }
 

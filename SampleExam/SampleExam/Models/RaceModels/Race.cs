@@ -72,7 +72,7 @@ public abstract class Race
 			sb.AppendLine($"{i + 1}. {winners[i].Brand} {winners[i].Model} {this.GetPerformancePoints(winners[i])}PP - ${money}");
 		}
 
-		return sb.ToString();
+		return sb.ToString().Trim();
 	}
 		
 
