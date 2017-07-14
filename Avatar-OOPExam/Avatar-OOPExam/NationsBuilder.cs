@@ -73,29 +73,9 @@ public class NationsBuilder
 			}
 		}
 
-		nations.Where(nt => nt.GetWarPoints() != maxPoints)
+		nations.Where(nt => nt.GetWarPoints() < maxPoints)
 			.ToList()
 			.ForEach(m => { m.Monuments.Clear(); m.Benders.Clear();});
-
-		////add more logic
-		//var n = nations.ToList();
-		//var firstNation = n[0];
-		//for (int i = 1; i < nations.Count; i++)
-		//{
-		//	var secondNation = n[i];
-
-		//	if (firstNation.GetWarPoints() > secondNation.GetWarPoints())
-		//	{
-		//		secondNation.Benders = new List<Bender>();
-		//		secondNation.Monuments = new List<Monument>();
-		//	}
-		//	else
-		//	{
-		//		firstNation.Benders = new List<Bender>();
-		//		firstNation.Monuments = new List<Monument>();
-		//		firstNation = secondNation;
-		//	}
-		//}
 	}
 	public string GetWarsRecord()
 	{

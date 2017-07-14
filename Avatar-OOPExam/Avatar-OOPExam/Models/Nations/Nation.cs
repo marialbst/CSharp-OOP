@@ -27,7 +27,7 @@ public abstract class Nation
 
 	public double TotalPower()
 	{
-		return this.Benders.Sum(b => b.Power);
+		return this.Benders.Sum(b => b.GetTotalPower());
 	}
 
 	public double MonumentBonus()
